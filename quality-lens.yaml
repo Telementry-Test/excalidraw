@@ -1,0 +1,17 @@
+# Auto-generated quality lens configuration
+# Project: Excalidraw Monorepo
+# Languages: TypeScript, JavaScript
+# Generated: 2026-01-20
+
+lenses:
+  # Types: Type safety checking
+  typescript: npm run test:typecheck
+
+  # Formatting: Code formatting verification
+  prettier: npm run prettier -- --check --log-level debug
+
+  # Tests: Test runner and coverage
+  vitest: npm run test -- --run --coverage --reporter=json
+
+  # Node Tests: Basic Node.js test runner
+  node-test: npm run test
