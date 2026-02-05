@@ -1,0 +1,129 @@
+{
+  "id": "excalidraw-onboarding",
+  "title": "Excalidraw Codebase Tour",
+  "description": "Learn the monorepo structure and key components of the Excalidraw drawing application",
+  "version": "1.0.0",
+  "audience": "New Developers",
+  "prerequisites": [
+    "Basic understanding of React and TypeScript",
+    "Familiarity with monorepo concepts"
+  ],
+  "steps": [
+    {
+      "id": "step-1-overview",
+      "title": "Project Overview",
+      "description": "Welcome to Excalidraw! This is a monorepo containing both the core React component library and the full web application. You'll see the main packages, app code, and development tools.",
+      "estimatedTime": 60,
+      "colorMode": "fileTypes"
+    },
+    {
+      "id": "step-2-packages",
+      "title": "Core Packages",
+      "description": "The packages/ directory contains the core libraries. The main package is @excalidraw/excalidraw which is published to npm. Other packages provide shared utilities, math functions, and common types.",
+      "estimatedTime": 120,
+      "focusDirectory": "packages",
+      "highlightLayers": [
+        {
+          "id": "core-packages",
+          "name": "Core Libraries",
+          "color": "#3b82f6",
+          "items": [
+            {
+              "path": "packages/excalidraw",
+              "type": "directory"
+            },
+            {
+              "path": "packages/common",
+              "type": "directory"
+            },
+            {
+              "path": "packages/element",
+              "type": "directory"
+            },
+            {
+              "path": "packages/utils",
+              "type": "directory"
+            },
+            {
+              "path": "packages/math",
+              "type": "directory"
+            }
+          ],
+          "opacity": 0.7,
+          "borderWidth": 2
+        }
+      ],
+      "colorMode": "fileTypes"
+    },
+    {
+      "id": "step-3-application",
+      "title": "Web Application",
+      "description": "The excalidraw-app/ directory contains the full-featured web application that powers excalidraw.com. It includes collaboration features, sharing, and app-specific UI components.",
+      "estimatedTime": 120,
+      "focusDirectory": "excalidraw-app",
+      "highlightLayers": [
+        {
+          "id": "app-core",
+          "name": "App Core",
+          "color": "#10b981",
+          "items": [
+            {
+              "path": "excalidraw-app/App.tsx",
+              "type": "file"
+            },
+            {
+              "path": "excalidraw-app/index.tsx",
+              "type": "file"
+            },
+            {
+              "path": "excalidraw-app/components",
+              "type": "directory"
+            }
+          ],
+          "opacity": 0.7,
+          "borderWidth": 2
+        }
+      ],
+      "colorMode": "fileTypes"
+    },
+    {
+      "id": "step-4-examples",
+      "title": "Integration Examples",
+      "description": "The examples/ directory shows how to integrate Excalidraw into different environments. Currently includes NextJS and browser script examples.",
+      "estimatedTime": 60,
+      "focusDirectory": "examples",
+      "colorMode": "fileTypes"
+    },
+    {
+      "id": "step-5-configuration",
+      "title": "Development Configuration",
+      "description": "Key configuration files for development. The project uses Yarn workspaces for monorepo management, TypeScript throughout, and Vite for building.",
+      "estimatedTime": 90,
+      "highlightFiles": [
+        "package.json",
+        "tsconfig.json",
+        "vitest.config.mts",
+        "yarn.lock"
+      ],
+      "colorMode": "fileTypes"
+    },
+    {
+      "id": "step-6-scripts",
+      "title": "Build Scripts",
+      "description": "The scripts/ directory contains build automation, release management, and development utilities. These handle package building, documentation generation, and deployment.",
+      "estimatedTime": 60,
+      "focusDirectory": "scripts",
+      "colorMode": "fileTypes"
+    }
+  ],
+  "metadata": {
+    "author": "Excalidraw Team",
+    "createdAt": "2026-02-05T19:34:00.000Z",
+    "tags": [
+      "onboarding",
+      "monorepo",
+      "excalidraw",
+      "react"
+    ]
+  }
+}
