@@ -2,7 +2,7 @@
   "id": "excalidraw-onboarding",
   "title": "Excalidraw Codebase Tour",
   "description": "Learn the monorepo structure and key components of the Excalidraw drawing application",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "audience": "New Developers",
   "prerequisites": [
     "Basic understanding of React and TypeScript",
@@ -12,118 +12,279 @@
     {
       "id": "step-1-overview",
       "title": "Project Overview",
-      "description": "Welcome to Excalidraw! This is a monorepo containing both the core React component library and the full web application. You'll see the main packages, app code, and development tools.",
+      "description": "Welcome to Excalidraw! This is a monorepo built with Yarn workspaces containing the core React component library (packages/), the full web application (excalidraw-app/), integration examples (examples/), developer docs (dev-docs/), and build scripts (scripts/). The library is published as @excalidraw/excalidraw on npm.",
       "estimatedTime": 60,
-      "colorMode": "fileTypes"
-    },
-    {
-      "id": "step-2-packages",
-      "title": "Core Packages",
-      "description": "The packages/ directory contains the core libraries. The main package is @excalidraw/excalidraw which is published to npm. Other packages provide shared utilities, math functions, and common types.",
-      "estimatedTime": 120,
-      "focusDirectory": "packages",
+      "focusDirectory": "",
+      "colorMode": "fileTypes",
       "highlightLayers": [
         {
-          "id": "core-packages",
-          "name": "Core Libraries",
+          "id": "main-areas",
+          "name": "Key Directories",
           "color": "#3b82f6",
           "items": [
-            {
-              "path": "packages/excalidraw",
-              "type": "directory"
-            },
-            {
-              "path": "packages/common",
-              "type": "directory"
-            },
-            {
-              "path": "packages/element",
-              "type": "directory"
-            },
-            {
-              "path": "packages/utils",
-              "type": "directory"
-            },
-            {
-              "path": "packages/math",
-              "type": "directory"
-            }
+            { "path": "packages", "type": "directory" },
+            { "path": "excalidraw-app", "type": "directory" },
+            { "path": "examples", "type": "directory" },
+            { "path": "dev-docs", "type": "directory" }
           ],
-          "opacity": 0.7,
-          "borderWidth": 2
+          "opacity": 0.6,
+          "borderWidth": 2,
+          "renderStrategy": "border"
         }
       ],
-      "colorMode": "fileTypes"
+      "interactiveActions": [
+        {
+          "type": "explore",
+          "description": "Explore the top-level directory layout before diving in"
+        }
+      ]
     },
     {
-      "id": "step-3-application",
-      "title": "Web Application",
-      "description": "The excalidraw-app/ directory contains the full-featured web application that powers excalidraw.com. It includes collaboration features, sharing, and app-specific UI components.",
+      "id": "step-2-excalidraw-package",
+      "title": "Main Library: @excalidraw/excalidraw",
+      "description": "The heart of the project. This package contains the full editor: actions/ defines every user operation (align, delete, flip, group, etc.), components/ has 150+ React UI components (toolbar, sidebar, color picker, command palette), renderer/ handles canvas drawing, scene/ manages the drawing state, and data/ handles serialization. Note that source files live directly in the package root, not in a src/ subdirectory.",
       "estimatedTime": 120,
-      "focusDirectory": "excalidraw-app",
+      "focusDirectory": "packages/excalidraw",
+      "colorMode": "fileTypes",
       "highlightLayers": [
         {
-          "id": "app-core",
-          "name": "App Core",
-          "color": "#10b981",
+          "id": "editor-core",
+          "name": "Editor Core",
+          "color": "#3b82f6",
           "items": [
-            {
-              "path": "excalidraw-app/App.tsx",
-              "type": "file"
-            },
-            {
-              "path": "excalidraw-app/index.tsx",
-              "type": "file"
-            },
-            {
-              "path": "excalidraw-app/components",
-              "type": "directory"
-            }
+            { "path": "packages/excalidraw/actions", "type": "directory" },
+            { "path": "packages/excalidraw/components", "type": "directory" },
+            { "path": "packages/excalidraw/renderer", "type": "directory" },
+            { "path": "packages/excalidraw/scene", "type": "directory" }
           ],
           "opacity": 0.7,
-          "borderWidth": 2
+          "borderWidth": 2,
+          "renderStrategy": "border"
+        },
+        {
+          "id": "editor-data",
+          "name": "Data & State",
+          "color": "#f59e0b",
+          "items": [
+            { "path": "packages/excalidraw/data", "type": "directory" },
+            { "path": "packages/excalidraw/context", "type": "directory" },
+            { "path": "packages/excalidraw/hooks", "type": "directory" }
+          ],
+          "opacity": 0.7,
+          "borderWidth": 2,
+          "renderStrategy": "border"
         }
       ],
-      "colorMode": "fileTypes"
+      "interactiveActions": [
+        {
+          "type": "hover-directory",
+          "description": "Hover over the actions/ directory to see individual editor actions",
+          "target": "packages/excalidraw/actions"
+        }
+      ]
     },
     {
-      "id": "step-4-examples",
-      "title": "Integration Examples",
-      "description": "The examples/ directory shows how to integrate Excalidraw into different environments. Currently includes NextJS and browser script examples.",
-      "estimatedTime": 60,
-      "focusDirectory": "examples",
-      "colorMode": "fileTypes"
-    },
-    {
-      "id": "step-5-configuration",
-      "title": "Development Configuration",
-      "description": "Key configuration files for development. The project uses Yarn workspaces for monorepo management, TypeScript throughout, and Vite for building.",
+      "id": "step-3-element-package",
+      "title": "Element Package: Shape Logic",
+      "description": "The @excalidraw/element package handles everything about drawing elements: creating new shapes (newElement.ts), hit testing and collision detection (collision.ts), binding arrows to shapes (binding.ts), resizing and transforming (resizeElements.ts, transform.ts), text wrapping and measurement (textWrapping.ts, textMeasurements.ts), and the elbow arrow routing algorithm (elbowArrow.ts).",
       "estimatedTime": 90,
-      "highlightFiles": [
-        "package.json",
-        "tsconfig.json",
-        "vitest.config.mts",
-        "yarn.lock"
+      "focusDirectory": "packages/element",
+      "colorMode": "fileTypes",
+      "highlightLayers": [
+        {
+          "id": "element-core",
+          "name": "Element Operations",
+          "color": "#8b5cf6",
+          "items": [
+            { "path": "packages/element/src/newElement.ts", "type": "file" },
+            { "path": "packages/element/src/binding.ts", "type": "file" },
+            { "path": "packages/element/src/collision.ts", "type": "file" },
+            { "path": "packages/element/src/resizeElements.ts", "type": "file" },
+            { "path": "packages/element/src/elbowArrow.ts", "type": "file" }
+          ],
+          "opacity": 0.7,
+          "borderWidth": 2,
+          "renderStrategy": "border"
+        }
       ],
-      "colorMode": "fileTypes"
+      "interactiveActions": [
+        {
+          "type": "click-file",
+          "description": "Click on types.ts to see how elements are defined",
+          "target": "packages/element/src/types.ts"
+        }
+      ]
     },
     {
-      "id": "step-6-scripts",
-      "title": "Build Scripts",
-      "description": "The scripts/ directory contains build automation, release management, and development utilities. These handle package building, documentation generation, and deployment.",
+      "id": "step-4-supporting-packages",
+      "title": "Supporting Packages",
+      "description": "Three utility packages round out the core: @excalidraw/math provides geometric primitives (points, lines, curves, polygons, ellipses) used for hit testing and rendering. @excalidraw/common holds shared constants, color utilities, key bindings, and TypeScript utility types. @excalidraw/utils provides export helpers and bounding-box calculations for consumers of the library.",
+      "estimatedTime": 90,
+      "focusDirectory": "packages",
+      "colorMode": "fileTypes",
+      "highlightLayers": [
+        {
+          "id": "math-pkg",
+          "name": "Math",
+          "color": "#ec4899",
+          "items": [
+            { "path": "packages/math", "type": "directory" }
+          ],
+          "opacity": 0.7,
+          "borderWidth": 2,
+          "renderStrategy": "border"
+        },
+        {
+          "id": "common-pkg",
+          "name": "Common",
+          "color": "#14b8a6",
+          "items": [
+            { "path": "packages/common", "type": "directory" }
+          ],
+          "opacity": 0.7,
+          "borderWidth": 2,
+          "renderStrategy": "border"
+        },
+        {
+          "id": "utils-pkg",
+          "name": "Utils",
+          "color": "#f97316",
+          "items": [
+            { "path": "packages/utils", "type": "directory" }
+          ],
+          "opacity": 0.7,
+          "borderWidth": 2,
+          "renderStrategy": "border"
+        }
+      ],
+      "interactiveActions": [
+        {
+          "type": "hover-directory",
+          "description": "Hover over packages/math to see the geometric primitives",
+          "target": "packages/math"
+        }
+      ]
+    },
+    {
+      "id": "step-5-application",
+      "title": "Web Application (excalidraw.com)",
+      "description": "The excalidraw-app/ directory is the full-featured web app that powers excalidraw.com. App.tsx wires together the Excalidraw component with app-specific features. The collab/ directory implements real-time collaboration using WebSockets. The data/ directory handles cloud storage, sharing links, and Firebase integration. The components/ directory adds the app menu, sidebar, welcome screen, and AI features.",
+      "estimatedTime": 120,
+      "focusDirectory": "excalidraw-app",
+      "colorMode": "fileTypes",
+      "highlightLayers": [
+        {
+          "id": "app-entry",
+          "name": "App Entry",
+          "color": "#10b981",
+          "items": [
+            { "path": "excalidraw-app/App.tsx", "type": "file" },
+            { "path": "excalidraw-app/index.tsx", "type": "file" }
+          ],
+          "opacity": 0.8,
+          "borderWidth": 2,
+          "renderStrategy": "border"
+        },
+        {
+          "id": "app-features",
+          "name": "Key Features",
+          "color": "#6366f1",
+          "items": [
+            { "path": "excalidraw-app/collab", "type": "directory" },
+            { "path": "excalidraw-app/data", "type": "directory" },
+            { "path": "excalidraw-app/components", "type": "directory" }
+          ],
+          "opacity": 0.7,
+          "borderWidth": 2,
+          "renderStrategy": "border"
+        }
+      ],
+      "interactiveActions": [
+        {
+          "type": "click-file",
+          "description": "Click App.tsx to see how the Excalidraw component is configured",
+          "target": "excalidraw-app/App.tsx"
+        }
+      ]
+    },
+    {
+      "id": "step-6-configuration",
+      "title": "Configuration & Tooling",
+      "description": "The root package.json defines Yarn workspace configuration and shared dev dependencies. vitest.config.mts configures the test runner with path aliases for the internal packages. The project uses TypeScript throughout (tsconfig.json), esbuild for building packages (scripts/buildPackage.js), and Vite for the web app (excalidraw-app/vite.config.mts). Docker support is available via Dockerfile and docker-compose.yml.",
       "estimatedTime": 60,
-      "focusDirectory": "scripts",
-      "colorMode": "fileTypes"
+      "focusDirectory": "",
+      "colorMode": "fileTypes",
+      "highlightLayers": [
+        {
+          "id": "config-files",
+          "name": "Configuration",
+          "color": "#ef4444",
+          "items": [
+            { "path": "package.json", "type": "file" },
+            { "path": "tsconfig.json", "type": "file" },
+            { "path": "vitest.config.mts", "type": "file" }
+          ],
+          "opacity": 0.8,
+          "borderWidth": 2,
+          "renderStrategy": "border"
+        },
+        {
+          "id": "build-scripts",
+          "name": "Build Scripts",
+          "color": "#f59e0b",
+          "items": [
+            { "path": "scripts", "type": "directory" }
+          ],
+          "opacity": 0.7,
+          "borderWidth": 2,
+          "renderStrategy": "border"
+        }
+      ],
+      "interactiveActions": [
+        {
+          "type": "click-file",
+          "description": "Click package.json to see workspace configuration",
+          "target": "package.json"
+        }
+      ]
+    },
+    {
+      "id": "step-7-next-steps",
+      "title": "Start Contributing",
+      "description": "You now know the Excalidraw architecture! To start developing: run 'yarn' to install dependencies, then 'yarn start' to launch the dev server. Use 'yarn test:update' to run tests and 'yarn test:typecheck' for type checking. Package work goes in packages/, app features in excalidraw-app/. Check dev-docs/ for detailed documentation and CONTRIBUTING.md for contribution guidelines.",
+      "estimatedTime": 60,
+      "focusDirectory": "",
+      "colorMode": "fileTypes",
+      "interactiveActions": [
+        {
+          "type": "explore",
+          "description": "Explore the codebase freely and start building!"
+        }
+      ],
+      "resources": [
+        {
+          "title": "Contributing Guide",
+          "url": "CONTRIBUTING.md",
+          "type": "documentation"
+        },
+        {
+          "title": "Developer Documentation",
+          "url": "dev-docs/",
+          "type": "documentation"
+        }
+      ]
     }
   ],
   "metadata": {
     "author": "Excalidraw Team",
     "createdAt": "2026-02-05T19:34:00.000Z",
+    "updatedAt": "2026-02-07T00:00:00.000Z",
     "tags": [
       "onboarding",
       "monorepo",
       "excalidraw",
-      "react"
+      "react",
+      "typescript"
     ]
   }
 }
